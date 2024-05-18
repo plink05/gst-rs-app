@@ -1,0 +1,18 @@
+[package]
+name = "my-common"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[dependencies]
+anyhow = "1.0.86"
+crossbeam = { version = "0.8.4", features = [ "crossbeam-channel" ] }
+derivative = "2.2.0"
+serde = { version = "1.0.197", features = [ "derive" ] }
+thread-priority = "0.16.0"
+tracing = "0.1.40"
+my-workspace-hack = { version = "0.1", path = "../my-workspace-hack" }
+
+
+[dev-dependencies]
+thingbuf = "0.1.5"

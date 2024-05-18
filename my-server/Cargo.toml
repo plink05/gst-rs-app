@@ -1,0 +1,11 @@
+[package]
+name = "my-server"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[dependencies]
+anyhow = "1.0.86"
+ctrlc = "3.4.4"
+my-common = { path = "../my-common" }
+my-workspace-hack = { version = "0.1", path = "../my-workspace-hack" }
