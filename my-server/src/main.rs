@@ -4,7 +4,8 @@ use std::{
     sync::atomic::AtomicBool, thread::Thread,
 };
 use anyhow::Result;
-use my_server::driver::simple::SimpleDriver;
+// use my_server::driver::simple::SimpleDriver;
+use my_server::driver::gst::GstDriver;
 
 fn main() -> Result<()> {
     
@@ -21,8 +22,8 @@ fn main() -> Result<()> {
         .expect("Error setting Ctrl-C handler");
     }
 
-    let simple = SimpleDriver::new();
+    let gst = GstDriver::new();
 
-    thread_manager.spawn_into_thread(simple);
+    thread_manager.spawn_into_thread(gst);
     thread_manager.join_all()
 }

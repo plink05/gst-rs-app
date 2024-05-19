@@ -26,6 +26,8 @@
   outputs = { self, nixpkgs, crane, fenix, flake-utils, advisory-db, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
+
+				gstreamer = pkgs.gst_all_1.gstreamer.override { glib = pkgs.glib; };
         pkgs = nixpkgs.legacyPackages.${system};
 
         inherit (pkgs) lib;
@@ -40,10 +42,22 @@
 
           buildInputs = [
             # Add additional build inputs here
+						gstreamer
+    				pkgs.gst_all_1.gst-plugins-base
+    				pkgs.gst_all_1.gst-plugins-good
+    				pkgs.gst_all_1.gst-plugins-bad
+    				pkgs.gst_all_1.gst-plugins-ugly
+    				pkgs.gst_all_1.gst-libav
+    				pkgs.gst_all_1.gst-rtsp-server
+						pkgs.glib
           ] ++ lib.optionals pkgs.stdenv.isDarwin [
             # Additional darwin specific inputs can be set here
             pkgs.libiconv
+
+
           ];
+
+					PKG_CONFIG_PATH=gstreamer.dev;
 
           # Additional environment variables can be set directly
           # MY_CUSTOM_VAR = "some value";
@@ -181,6 +195,7 @@
 
           # Additional dev-shell environment variables can be set directly
           # MY_CUSTOM_DEVELOPMENT_VAR = "something else";
+					PKG_CONFIG_PATH="${gstreamer.dev}/lib/pkgconfig:${pkgs.glib.dev}/lib/pkgconfig";
 
           # Extra inputs can be added here; cargo and rustc are provided by default.
           packages = [
